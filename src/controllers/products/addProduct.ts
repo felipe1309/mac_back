@@ -8,6 +8,7 @@ type productData = Omit<product, '_id'>
 export const addProduct: RequestHandler = async (req, res) => {
   try {
     const { name, value } = req.body as productData
+    console.log(req.body)
     let image
     if (req.files?.image) {
       const file = req.files.image as UploadedFile
