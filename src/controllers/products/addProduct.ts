@@ -4,10 +4,10 @@ import fs_extra from 'fs-extra'
 import { product } from '../../types/products'
 import { uploadImage } from '../../libs/claudinary'
 import Products from '../../models/Products'
-type productData = Omit<product, '_id'>
+type productData = Omit<product, '_id' | 'image' >
 export const addProduct: RequestHandler = async (req, res) => {
   try {
-    const { name, value } = req.body as productData
+    const { name, value, description } = req.body as productData
     console.log(req.body)
     let image
     if (req.files?.image) {
@@ -20,7 +20,7 @@ export const addProduct: RequestHandler = async (req, res) => {
       await fs_extra.remove(file.tempFilePath)
     }
     const newProduct = new Products({
-      name, value, image
+      name, value, image, description
     })
     const productSave = await newProduct.save()
     return res.status(201).json(productSave)
