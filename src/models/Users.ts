@@ -17,8 +17,14 @@ const userShema = new Schema({
     unique: true
   },
   password: {
-    type: String,
-    require: true
+    type: String
+  },
+  aditionalData: {
+    typeAuth: {
+      type: String,
+      enum: ['normal', 'facebook', 'google'],
+      default: 'normal'
+    }
   }
 })
 userShema.methods.bcryptPassword = async (password: string) => {

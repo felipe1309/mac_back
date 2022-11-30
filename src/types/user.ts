@@ -4,4 +4,8 @@ export interface user {
   password: string
   _id: string
   tipo: 'admin' | 'normal'
+  aditionalData: aditionalData
+}
+interface aditionalData {
+  typeAuth: 'normal' | 'facebook' | 'google'
 }

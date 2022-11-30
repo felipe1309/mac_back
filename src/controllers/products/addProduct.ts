@@ -8,7 +8,6 @@ type productData = Omit<product, '_id' | 'image' >
 export const addProduct: RequestHandler = async (req, res) => {
   try {
     const { name, value, description } = req.body as productData
-    console.log(req.body)
     let image
     if (req.files?.image) {
       const file = req.files.image as UploadedFile
@@ -22,9 +21,12 @@ export const addProduct: RequestHandler = async (req, res) => {
     const newProduct = new Products({
       name, value, image, description
     })
+    console.log(newProduct)
     const productSave = await newProduct.save()
+    console.log(productSave)
     return res.status(201).json(productSave)
   } catch (error) {
+    console.log(error)
     return res.status(401).json(error)
   }
 }
